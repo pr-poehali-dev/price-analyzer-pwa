@@ -9,11 +9,13 @@ import { Comparison } from '@/types';
 import Icon from '@/components/ui/icon';
 
 export const CompareForm = () => {
+  const [nameX, setNameX] = useState('');
   const [priceX, setPriceX] = useState('');
   const [weightX, setWeightX] = useState('');
+  const [nameY, setNameY] = useState('');
   const [priceY, setPriceY] = useState('');
   const [weightY, setWeightY] = useState('');
-  const [result, setResult] = useState<{ pricePerGramX: number; pricePerGramY: number; betterOption: 'X' | 'Y'; savingsPercent: number } | null>(null);
+  const [result, setResult] = useState<{ nameX: string; pricePerGramX: number; nameY: string; pricePerGramY: number; betterOption: 'X' | 'Y'; savingsPercent: number } | null>(null);
 
   const handleCompare = () => {
     const pX = parseFloat(priceX);
@@ -30,13 +32,15 @@ export const CompareForm = () => {
     const betterOption: 'X' | 'Y' = pricePerGramX < pricePerGramY ? 'X' : 'Y';
     const savingsPercent = calculateSavingsPercent(pricePerGramX, pricePerGramY);
 
-    setResult({ pricePerGramX, pricePerGramY, betterOption, savingsPercent });
+    setResult({ nameX: nameX || 'Товар X', pricePerGramX, nameY: nameY || 'Товар Y', pricePerGramY, betterOption, savingsPercent });
 
     const comparison: Comparison = {
       id: Date.now().toString(),
       date: new Date().toISOString(),
+      nameX: nameX || undefined,
       priceX: pX,
       weightX: wX,
+      nameY: nameY || undefined,
       priceY: pY,
       weightY: wY,
       pricePerGramX,
@@ -49,8 +53,10 @@ export const CompareForm = () => {
   };
 
   const handleReset = () => {
+    setNameX('');
     setPriceX('');
     setWeightX('');
+    setNameY('');
     setPriceY('');
     setWeightY('');
     setResult(null);
@@ -59,10 +65,14 @@ export const CompareForm = () => {
   return (
     <div className="space-y-4">
       <Card className="p-6 animate-fade-in">
-        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <Icon name="ShoppingBasket" className="text-primary" />
-          Товар X
-        </h3>
+        <div className="mb-4">
+          <Input
+            placeholder="Товар X"
+            value={nameX}
+            onChange={(e) => setNameX(e.target.value)}
+            className="text-lg font-semibold border-0 px-0 focus-visible:ring-0 placeholder:text-muted-foreground"
+          />
+        </div>
         <div className="space-y-4">
           <div>
             <Label htmlFor="priceX">Цена (₽)</Label>
@@ -90,10 +100,14 @@ export const CompareForm = () => {
       </Card>
 
       <Card className="p-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-        <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-          <Icon name="ShoppingCart" className="text-primary" />
-          Товар Y
-        </h3>
+        <div className="mb-4">
+          <Input
+            placeholder="Товар Y"
+            value={nameY}
+            onChange={(e) => setNameY(e.target.value)}
+            className="text-lg font-semibold border-0 px-0 focus-visible:ring-0 placeholder:text-muted-foreground"
+          />
+        </div>
         <div className="space-y-4">
           <div>
             <Label htmlFor="priceY">Цена (₽)</Label>
@@ -139,7 +153,7 @@ export const CompareForm = () => {
           <div className="space-y-3">
             <div className={`p-4 rounded-lg ${result.betterOption === 'X' ? 'bg-primary/20 border-2 border-primary' : 'bg-muted'}`}>
               <div className="flex justify-between items-center">
-                <span className="font-semibold">Товар X:</span>
+                <span className="font-semibold">{result.nameX}:</span>
                 <span className="text-lg font-bold">{formatCurrency(result.pricePerGramX)}/г</span>
               </div>
               {result.betterOption === 'X' && (
@@ -151,7 +165,7 @@ export const CompareForm = () => {
             </div>
             <div className={`p-4 rounded-lg ${result.betterOption === 'Y' ? 'bg-primary/20 border-2 border-primary' : 'bg-muted'}`}>
               <div className="flex justify-between items-center">
-                <span className="font-semibold">Товар Y:</span>
+                <span className="font-semibold">{result.nameY}:</span>
                 <span className="text-lg font-bold">{formatCurrency(result.pricePerGramY)}/г</span>
               </div>
               {result.betterOption === 'Y' && (

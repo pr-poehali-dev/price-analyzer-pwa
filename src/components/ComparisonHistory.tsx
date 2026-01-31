@@ -50,7 +50,7 @@ export const ComparisonHistory = ({ comparisons, onComparisonDeleted }: Comparis
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className={`p-3 rounded-lg ${comparison.betterOption === 'X' ? 'bg-primary/10 border border-primary' : 'bg-muted'}`}>
-                  <div className="text-xs text-muted-foreground mb-1">Товар X</div>
+                  <div className="text-xs text-muted-foreground mb-1">{comparison.nameX || 'Товар X'}</div>
                   <div className="font-semibold">{formatCurrency(comparison.priceX)}</div>
                   <div className="text-xs text-muted-foreground">{comparison.weightX}г</div>
                   <div className="text-sm font-bold mt-1">{formatCurrency(comparison.pricePerGramX)}/г</div>
@@ -62,7 +62,7 @@ export const ComparisonHistory = ({ comparisons, onComparisonDeleted }: Comparis
                   )}
                 </div>
                 <div className={`p-3 rounded-lg ${comparison.betterOption === 'Y' ? 'bg-primary/10 border border-primary' : 'bg-muted'}`}>
-                  <div className="text-xs text-muted-foreground mb-1">Товар Y</div>
+                  <div className="text-xs text-muted-foreground mb-1">{comparison.nameY || 'Товар Y'}</div>
                   <div className="font-semibold">{formatCurrency(comparison.priceY)}</div>
                   <div className="text-xs text-muted-foreground">{comparison.weightY}г</div>
                   <div className="text-sm font-bold mt-1">{formatCurrency(comparison.pricePerGramY)}/г</div>

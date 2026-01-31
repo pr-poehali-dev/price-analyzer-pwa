@@ -1,8 +1,10 @@
 export interface Comparison {
   id: string;
   date: string;
+  nameX?: string;
   priceX: number;
   weightX: number;
+  nameY?: string;
   priceY: number;
   weightY: number;
   pricePerGramX: number;
