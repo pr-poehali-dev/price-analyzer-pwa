@@ -15,19 +15,19 @@ export const BottomNav = ({ activeTab, onTabChange }: BottomNavProps) => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50 pb-safe">
-      <div className="max-w-md mx-auto flex gap-1 p-2 overflow-x-auto">
+      <div className="max-w-md mx-auto grid grid-cols-4 gap-1 p-2">
         {tabs.map(tab => (
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
-            className={`flex-shrink-0 flex items-center gap-2 py-2 px-4 rounded-lg transition-all ${
+            className={`flex flex-col items-center gap-1 py-2.5 px-2 rounded-lg transition-all ${
               activeTab === tab.id
                 ? 'bg-primary text-primary-foreground'
                 : 'text-muted-foreground hover:text-foreground hover:bg-muted'
             }`}
           >
             <Icon name={tab.icon as any} size={20} />
-            <span className="text-sm font-medium whitespace-nowrap">{tab.label}</span>
+            <span className="text-[10px] font-medium leading-tight">{tab.label}</span>
           </button>
         ))}
       </div>
