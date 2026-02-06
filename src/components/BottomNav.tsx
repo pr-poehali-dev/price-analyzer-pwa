@@ -14,7 +14,7 @@ export const BottomNav = ({ activeTab, onTabChange }: BottomNavProps) => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-card border-t border-border shadow-lg z-50 pb-safe">
+    <div className="bg-card border-t border-border">
       <div className="max-w-md mx-auto grid grid-cols-4 gap-1 p-2">
         {tabs.map(tab => (
           <button

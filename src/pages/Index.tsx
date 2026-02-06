@@ -24,7 +24,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-screen bg-background">
       <header className="sticky top-0 bg-card border-b border-border shadow-sm z-40">
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
@@ -37,9 +37,10 @@ const Index = () => {
             </div>
           </div>
         </div>
+        <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
       </header>
 
-      <main className="max-w-md mx-auto px-4 py-6">
+      <main className="max-w-md mx-auto px-4 py-6 pb-6">
         {activeTab === 'compare' && (
           <div>
             <CompareForm />
@@ -79,8 +80,6 @@ const Index = () => {
           </div>
         )}
       </main>
-
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
   );
 };
